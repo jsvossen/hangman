@@ -35,18 +35,22 @@ class Hangman
 		puts "-------"
 	end
 
+	#are all stickman parts flagged?
 	def hanged?
 		@stickman.parts.all? { |p| p.flag == true }
 	end
 
+	#is the stickman fully flagged, or the word guessed?
 	def game_over
 		hanged? || @correct.none? { |c| c == "_"}
 	end
 
+	#check if letter has been guessed already
 	def good_guess?(guess)
 		!@correct.include?(guess) && !@wrong.include?(guess)
 	end
 
+	#accept a single letter as valid input
 	def valid_input?(guess)
 		guess.match("^[a-z]$")
 	end
@@ -141,7 +145,7 @@ end
 puts "Start a NEW game or LOAD a saved game?"
 start = gets.chomp.downcase
 file = start.split[1]
-until start == "new" || load_game(file = start.split[1]) do
+until start == "new" || load_game(file) do
 	puts "Type NEW for a new game or LOAD plus the save name to load a game"
 	start = gets.chomp.downcase
 end
